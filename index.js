@@ -1,11 +1,10 @@
 require('dotenv').config();
 
-const { Bot, session, InputFile, InlineKeyboard, webhookCallback } = require("grammy");
+const { Bot, session, InputFile, InlineKeyboard } = require("grammy");
 const { Menu } = require("@grammyjs/menu");
 const { hydrate } = require("@grammyjs/hydrate");
 const { conversations, createConversation } = require("@grammyjs/conversations");
 const productsFullList = require("./products");
-const express = require("express");
 
 const bot = new Bot(process.env.BOT_API_KEY);
 
@@ -89,7 +88,7 @@ async function fullpurchase(conversation, ctx) {
   const providers = {
     "Хорека": [],
     "Львів": [],
-    "ФудПак": [],
+    "Фудпак": [],
     "Козуб": [],
     "Метро": [],
     "Олександр Бакалія": [],
@@ -110,34 +109,47 @@ async function fullpurchase(conversation, ctx) {
     await ctx.reply(products[i].product);
     const answer = await conversation.waitFor(":text");
     const count = answer.message.text;
+
     if (count == "ок" || count == "х") {
       const listProducts = createListProducts(providers);
       await ctx.reply(listProducts ? listProducts : "Список пустий", { reply_markup: afterMenuInBuyList });
       posInBuyList = i;
       return;
     }
+
     if (isNaN(count)) {
       await ctx.reply("Введіть числове значення!")
       i--;
     } else {
       if (count !== "0") {
-      providers[products[i].provider].push({product: products[i].product,
-                                            count: products[i].count,
-                                            nameWeight: products[i].nameWeight
-                                          });
+        try {
+          providers[products[i].provider].push({
+            product: products[i].product,
+            count: count,
+            nameWeight: products[i].nameWeight
+          });
+        } catch (error){
+          console.error("Помилка занесення даних! " + error);
+        }
       }
     }
   }
   
+  const keys = Object.keys(providers);
 
-  for (let provider in providers) {
-    const listProduct = providers[provider];
+  for (let i = 0; i < keys.length; i++) {
+    const arr = providers[keys[i]];
 
-    if (listProduct.length > 0) {
-      const readyList = createListProducts(listProduct);
-      await ctx.reply(readyList ? readyList : "Список пустий", { reply_markup: afterMenuInBuyList });
+    if (arr.length > 0) {
+      const readyList = createListProducts(arr);
+      if (i === keys.length-1) {
+        await ctx.reply(readyList ? readyList : "Список пустий", { reply_markup: afterMenuInBuyList });
+      } else {
+        await ctx.reply(readyList ? readyList : "Список пустий");
+      }
     }
   }
+
   products = [];
 }
 

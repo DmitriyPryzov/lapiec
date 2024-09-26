@@ -60,7 +60,7 @@ const products = [
        "lastBuyCount": "2",
        "category": "Бакалія",
        "nameWeight": "кг",
-       "provider": "Інші"
+       "provider": "Веган"
     },
     {
        "product": "Дріжджі",
@@ -207,7 +207,7 @@ const products = [
        "provider": "Спеції"
     },
     {
-       "product": "Помідори у власному соці",
+       "product": "Помідори у власному соці (Пілаті)",
        "balance": 0,
        "count": 0,
        "lastBuyCount": "3",
@@ -357,7 +357,16 @@ const products = [
        "lastBuyCount": "3",
        "category": "Молочні продукти",
        "nameWeight": "кг",
-       "provider": "Брусилівський молок.завод"
+       "provider": "Брусил"
+    },
+    {
+        "product": "Масло вершкове",
+        "balance": 0,
+        "count": 0,
+        "lastBuyCount": "3",
+        "category": "Молочні продукти",
+        "nameWeight": "кг",
+        "provider": "Брусил"
     },
     {
        "product": "Сир «Рікота»",
