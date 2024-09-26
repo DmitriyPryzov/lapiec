@@ -1,13 +1,10 @@
 require('dotenv').config();
 
-const { Bot, session, InputFile, InlineKeyboard } = require("grammy");
+const { Bot, session, InputFile, InlineKeyboard, webhookCallback } = require("grammy");
 const { Menu } = require("@grammyjs/menu");
 const { hydrate } = require("@grammyjs/hydrate");
 const { conversations, createConversation } = require("@grammyjs/conversations");
 const productsFullList = require("../products");
-const { OpenAI } = require("openai");
-
-const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
 const bot = new Bot(process.env.BOT_API_KEY);
 
@@ -169,5 +166,4 @@ async function mainScreen(ctx) {
 }
 
 bot.start();
-//sad
 
