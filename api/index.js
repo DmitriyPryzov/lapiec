@@ -175,7 +175,7 @@ app.listen(PORT, async () => {
   console.log(`Сервер запущен на порту ${PORT}`);
 
   try {
-    await bot.api.setWebhook(`https://lapiec.vercel.app/`);
+    await bot.api.setWebhook(`https://lapiec-4guu53izz-dmitriypryzovs-projects.vercel.app/`);
     console.log("Вебхук установлен!");
   } catch (error) {
     console.error("Ошибка при установке вебхука", error);
