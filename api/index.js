@@ -5,8 +5,14 @@ const { Menu } = require("@grammyjs/menu");
 const { hydrate } = require("@grammyjs/hydrate");
 const { conversations, createConversation } = require("@grammyjs/conversations");
 const productsFullList = require("../products");
+const express = require("express");
 
 const bot = new Bot(process.env.BOT_API_KEY);
+const app = new express();
+app.use(express.json());
+
+app.use(webhookCallback(bot, "express"));
+
 
 let products = [];
 let posInBuyList = 0;
@@ -57,7 +63,6 @@ mainMenu.register(buylist);
 mainMenu.register(recipes);
 
 // APPEND NEW USE IN BOT
-
 bot.use(session({
     initial() {
       return {};
@@ -165,5 +170,14 @@ async function mainScreen(ctx) {
   });
 }
 
-bot.start();
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, async () => {
+  console.log(`Сервер запущен на порту ${PORT}`);
 
+  try {
+    await bot.api.setWebhook(`https://lapiec.vercel.app/`);
+    console.log("Вебхук установлен!");
+  } catch (error) {
+    console.error("Ошибка при установке вебхука", error);
+  }
+});
