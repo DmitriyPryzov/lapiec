@@ -1,247 +1,544 @@
 const products = [
     {
-        "product": "Ананас кільця",
-        "balance": 0,
-        "count": 1,
-        "lastBuyCount": 1,
-        "category": "Бакалія",
-        "nameWeight": "б",
-        "provider": "Хорека - Днепр Віталій (Полтава)"
+       "product": "Ананас кільця",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Бакалія",
+       "nameWeight": "б",
+       "provider": "Хорека"
     },
     {
-        "product": "Анчоуси",
-        "balance": 0,
-        "count": 2,
-        "lastBuyCount": 2,
-        "category": "Бакалія",
-        "nameWeight": "б",
-        "provider": "ФОП Рідник Руслан Львів"
+       "product": "Анчоуси",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Бакалія",
+       "nameWeight": "б",
+       "provider": "Львів"
     },
     {
-        "product": "Базилік сухий",
-        "balance": 0,
-        "count": 3,
-        "lastBuyCount": 3,
-        "category": "Бакалія",
-        "nameWeight": "кг",
-        "provider": "ТОВ 'ФудПак' Полтава"
+       "product": "Базилік сухий",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "5",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Фудпак"
     },
     {
-        "product": "Борошно",
-        "balance": 0,
-        "count": 4,
-        "lastBuyCount": 4,
-        "category": "Бакалія",
-        "nameWeight": "кг",
-        "provider": "Інші"
+       "product": "Борошно",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Інші"
     },
     {
-        "product": "Гірчиця діжонська",
-        "balance": 0,
-        "count": 5,
-        "lastBuyCount": 5,
-        "category": "Бакалія",
-        "nameWeight": "б",
-        "provider": "ПП Козуб (Королівський смак)"
+       "product": "Гірчиця діжонська",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Бакалія",
+       "nameWeight": "б",
+       "provider": "Козуб"
     },
     {
-        "product": "Помідори у власному соці",
-        "balance": 0,
-        "count": 6,
-        "lastBuyCount": 6,
-        "category": "Бакалія",
-        "nameWeight": "кг",
-        "provider": "Олександр Бакалія"
+       "product": "Гірчиця міцна",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "5",
+       "category": "Бакалія",
+       "nameWeight": "б",
+       "provider": "Козуб"
     },
     {
-        "product": "Сіль",
-        "balance": 0,
-        "count": 7,
-        "lastBuyCount": 7,
-        "category": "Бакалія",
-        "nameWeight": "кг",
-        "provider": "Інші"
+       "product": "Горіх",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Інші"
     },
     {
-        "product": "Суміш перців «МРІЯ»",
-        "balance": 0,
-        "count": 8,
-        "lastBuyCount": 8,
-        "category": "Бакалія",
-        "nameWeight": "кг",
-        "provider": "ТОВ 'ФудПак' Полтава"
+       "product": "Дріжджі",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "5",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Інші"
     },
     {
-        "product": "Томатна паста",
-        "balance": 0,
-        "count": 9,
-        "lastBuyCount": 9,
-        "category": "Бакалія",
-        "nameWeight": "кг",
-        "provider": "ПП Козуб (Королівський смак)"
+       "product": "Каперси",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Львів"
     },
     {
-        "product": "Тунець консервований",
-        "balance": 0,
-        "count": 0,
-        "lastBuyCount": 0,
-        "category": "Бакалія",
-        "nameWeight": "кг",
-        "provider": "ФОП Рідник Руслан Львів"
+       "product": "Кетчуп",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "1",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Козуб"
     },
     {
-        "product": "Фреш лимонний",
-        "balance": 0,
-        "count": 1,
-        "lastBuyCount": 1,
-        "category": "Бакалія",
-        "nameWeight": "б",
-        "provider": "Інші"
+       "product": "Корнішони",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "5",
+       "category": "Бакалія",
+       "nameWeight": "б",
+       "provider": "Метро"
     },
     {
-        "product": "Цукор",
-        "balance": 0,
-        "count": 2,
-        "lastBuyCount": 2,
-        "category": "Бакалія",
-        "nameWeight": "кг",
-        "provider": "Інші"
+       "product": "Кукурудза",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Бакалія",
+       "nameWeight": "б",
+       "provider": "Метро"
     },
     {
-        "product": "Бекон (грудинка копчена)",
-        "balance": 0,
-        "count": 3,
-        "lastBuyCount": 3,
-        "category": "М'ясні вироби",
-        "nameWeight": "кг",
-        "provider": "Кременчук м'ясо Фарро"
+       "product": "Майонез",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Козуб"
     },
     {
-        "product": "Прошутто",
-        "balance": 0,
-        "count": 4,
-        "lastBuyCount": 4,
-        "category": "М'ясні вироби",
-        "nameWeight": "кг",
-        "provider": "ФОП Рідник Руслан Львів"
+       "product": "Мед",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Інші"
     },
     {
-        "product": "Салямі золотиста",
-        "balance": 0,
-        "count": 5,
-        "lastBuyCount": 5,
-        "category": "М'ясні вироби",
-        "nameWeight": "кг",
-        "provider": "Глобинський м'ясокомбінат"
+       "product": "Оливки чорні б/к",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "1",
+       "category": "Бакалія",
+       "nameWeight": "б",
+       "provider": "Метро"
     },
     {
-        "product": "Салямі пепероні",
-        "balance": 0,
-        "count": 6,
-        "lastBuyCount": 6,
-        "category": "М'ясні вироби",
-        "nameWeight": "кг",
-        "provider": "Глобинський м'ясокомбінат"
+       "product": "Олія оливкова",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "5",
+       "category": "Бакалія",
+       "nameWeight": "л",
+       "provider": "Львів"
     },
     {
-        "product": "Шинка/балик",
-        "balance": 0,
-        "count": 7,
-        "lastBuyCount": 7,
-        "category": "М'ясні вироби",
-        "nameWeight": "кг",
-        "provider": "Кременчук м'ясо Фарро"
+       "product": "Олія рафінована",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "6",
+       "category": "Бакалія",
+       "nameWeight": "л",
+       "provider": "Козуб"
     },
     {
-        "product": "Сир «Моцарела»",
-        "balance": 0,
-        "count": 8,
-        "lastBuyCount": 8,
-        "category": "Молочні продукти",
-        "nameWeight": "кг",
-        "provider": "Брусилівський молок.завод"
+       "product": "Орегано",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Фудпак"
     },
     {
-        "product": "Сир «Рікота»",
-        "balance": 0,
-        "count": 9,
-        "lastBuyCount": 9,
-        "category": "Молочні продукти",
-        "nameWeight": "кг",
-        "provider": "ФОП Рідник Руслан Львів"
+       "product": "Оцет бальзамічний",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Бакалія",
+       "nameWeight": "л",
+       "provider": "Львів"
     },
     {
-        "product": "Гриби свіжі / печериці",
-        "balance": 0,
-        "count": 1,
-        "lastBuyCount": 1,
-        "category": "Овочі",
-        "nameWeight": "кг",
-        "provider": "Веган"
+       "product": "Оцет яблучний",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "Бакалія",
+       "nameWeight": "л",
+       "provider": "Інші"
     },
     {
-        "product": "Груша",
-        "balance": 0,
-        "count": 2,
-        "lastBuyCount": 2,
-        "category": "Овочі",
-        "nameWeight": "кг",
-        "provider": "Веган"
+       "product": "Паприка солодка",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Спеції"
     },
     {
-        "product": "Зелень (кріп/петрушка)",
-        "balance": 0,
-        "count": 3,
-        "lastBuyCount": 3,
-        "category": "Овочі",
-        "nameWeight": "кг",
-        "provider": "Веган"
+       "product": "Перець червоний гострий",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Спеції"
     },
     {
-        "product": "Огірок свіжий",
-        "balance": 0,
-        "count": 4,
-        "lastBuyCount": 4,
-        "category": "Овочі",
-        "nameWeight": "кг",
-        "provider": "Веган"
+       "product": "Перець чорний",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Спеції"
     },
     {
-        "product": "Перець болгарський",
-        "balance": 0,
-        "count": 5,
-        "lastBuyCount": 5,
-        "category": "Овочі",
-        "nameWeight": "кг",
-        "provider": "Веган"
+       "product": "Помідори у власному соці",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Олександр Бакалія"
     },
     {
-        "product": "Перець чілі",
-        "balance": 0,
-        "count": 6,
-        "lastBuyCount": 6,
-        "category": "Овочі",
-        "nameWeight": "кг",
-        "provider": "Веган"
+       "product": "Сіль",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "5",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Інші"
     },
     {
-        "product": "Помідори",
-        "balance": 0,
-        "count": 7,
-        "lastBuyCount": 7,
-        "category": "Овочі",
-        "nameWeight": "кг",
-        "provider": "Веган"
+       "product": "Суміш перців «МРІЯ»",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Фудпак"
     },
     {
-        "product": "Помідори чері",
-        "balance": 0,
-        "count": 8,
-        "lastBuyCount": 8,
-        "category": "Овочі",
-        "nameWeight": "кг",
-        "provider": "Веган"
+       "product": "Томатна паста",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "5",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Козуб"
+    },
+    {
+       "product": "Тунець консервований",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Львів"
+    },
+    {
+       "product": "Фреш лимонний",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Бакалія",
+       "nameWeight": "б",
+       "provider": "Інші"
+    },
+    {
+       "product": "Цукор",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "5",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Інші"
+    },
+    {
+       "product": "Цукор тростинний",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Фудпак"
+    },
+    {
+       "product": "Баварські ковбаски",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "М'ясні вироби",
+       "nameWeight": "кг",
+       "provider": "Фарро"
+    },
+    {
+       "product": "Бекон (грудинка копчена)",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "5",
+       "category": "М'ясні вироби",
+       "nameWeight": "кг",
+       "provider": "Фарро"
+    },
+    {
+       "product": "Прошутто",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "23",
+       "category": "М'ясні вироби",
+       "nameWeight": "кг",
+       "provider": "Львів"
+    },
+    {
+       "product": "Салямі золотиста",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "1",
+       "category": "М'ясні вироби",
+       "nameWeight": "кг",
+       "provider": "Глобино"
+    },
+    {
+       "product": "Салямі пепероні",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "М'ясні вироби",
+       "nameWeight": "кг",
+       "provider": "Глобино"
+    },
+    {
+       "product": "Шинка/балик",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "М'ясні вироби",
+       "nameWeight": "кг",
+       "provider": "Фарро"
+    },
+    {
+       "product": "Сир «ДорБлю»",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "Молочні продукти",
+       "nameWeight": "кг",
+       "provider": "Шинкаренко"
+    },
+    {
+       "product": "Сир «Пармезан»",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Молочні продукти",
+       "nameWeight": "кг",
+       "provider": "Львів"
+    },
+    {
+       "product": "Сир «Моцарела»",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "Молочні продукти",
+       "nameWeight": "кг",
+       "provider": "Брусилівський молок.завод"
+    },
+    {
+       "product": "Сир «Рікота»",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "Молочні продукти",
+       "nameWeight": "кг",
+       "provider": "Львів"
+    },
+    {
+       "product": "Гриби свіжі / печериці",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "34",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Груша",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Зелень (кріп/петрушка)",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Огірок свіжий",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Перець болгарський",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Перець чілі",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Помідори",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Помідори чері",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Рукола",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Салат айсберг",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "3",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Цибуля синя",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Часник",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Веган"
+    },
+    {
+       "product": "Броколі",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "овочі",
+       "nameWeight": "кг",
+       "provider": "Метро"
+    },
+    {
+       "product": "Філе куряче сире (на салат)",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "М'ясні вироби",
+       "nameWeight": "кг",
+       "provider": "Суми"
+    },
+    {
+       "product": "Філе куряче су-від",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "М'ясні вироби",
+       "nameWeight": "кг",
+       "provider": "Суми"
+    },
+    {
+       "product": "Лосось",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Рибні продукти",
+       "nameWeight": "кг",
+       "provider": "Люксор"
+    },
+    {
+       "product": "Хліб тостовий",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "Бакалія",
+       "nameWeight": "кг",
+       "provider": "Інші"
+    },
+    {
+       "product": "Яйця курячі",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "4",
+       "category": "Яйця",
+       "nameWeight": "шт",
+       "provider": "Полтавська птахофабрика"
+    },
+    {
+       "product": "Яйця перепелині",
+       "balance": 0,
+       "count": 0,
+       "lastBuyCount": "2",
+       "category": "Яйця",
+       "nameWeight": "шт",
+       "provider": "перепелині яйця"
     }
-];
+ ];
 
 module.exports = products;

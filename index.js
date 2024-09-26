@@ -87,21 +87,22 @@ bot.on("callback_query:data", async (ctx) => {
 
 async function fullpurchase(conversation, ctx) {
   const providers = {
-    "Хорека - Днепр Віталій (Полтава)": [],
-    "ФОП Рідник Руслан Львів": [],
-    "ТОВ 'ФудПак' Полтава": [],
-    "ПП Козуб (Королівський смак)": [],
+    "Хорека": [],
+    "Львів": [],
+    "ФудПак": [],
+    "Козуб": [],
     "Метро": [],
     "Олександр Бакалія": [],
-    "Кременчук м'ясо Фарро": [],
-    "Глобинський м'ясокомбінат": [],
-    "Брусилівський молок.завод": [],
-    "ФОП Шинкаренко": [],
+    "Фарро": [],
+    "Глобино": [],
+    "Брусил": [],
+    "Шинкаренко": [],
     "Веган": [],
-    "Наша Ряба (Суми)": [],
+    "Суми": [],
     "Люксор": [],
     "Полтавська птахофабрика": [],
     "перепелині яйця": [],
+    "Спеції": [],
     "Інші": []
   };
 
@@ -127,22 +128,26 @@ async function fullpurchase(conversation, ctx) {
       }
     }
   }
-  const listProducts = createListProducts(providers);
-  await ctx.reply(listProducts ? listProducts : "Список пустий", { reply_markup: afterMenuInBuyList });
+  
+
+  for (let provider in providers) {
+    const listProduct = providers[provider];
+
+    if (listProduct.length > 0) {
+      const readyList = createListProducts(listProduct);
+      await ctx.reply(readyList ? readyList : "Список пустий", { reply_markup: afterMenuInBuyList });
+    }
+  }
   products = [];
 }
 
-function createListProducts(objectList) {
+function createListProducts(array) {
   let result = "";
 
-  for (let key in objectList) {
-    const listProduct = objectList[key];
+  array.forEach(item => {
+    result += `${item.product} - ${item.count} ${item.nameWeight}\n`;
+  });
 
-    listProduct.forEach((product, index) => {
-      result += `${product.product} - ${product.count} ${product.nameWeight}\n`;
-      if (index === listProduct.length-1) result += "\n";
-    });
-  }
   return result == "" ? undefined : result;
 }
 
