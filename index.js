@@ -4,7 +4,7 @@ const { Bot, session, InputFile, InlineKeyboard, webhookCallback } = require("gr
 const { Menu } = require("@grammyjs/menu");
 const { hydrate } = require("@grammyjs/hydrate");
 const { conversations, createConversation } = require("@grammyjs/conversations");
-const productsFullList = require("../products");
+const productsFullList = require("./products");
 const express = require("express");
 
 const bot = new Bot(process.env.BOT_API_KEY);
@@ -160,7 +160,7 @@ async function buyVegetables(ctx) {
 
 
 async function mainScreen(ctx) {
-  await ctx.replyWithPhoto(new InputFile("../img/lapiec.jpg"), {
+  await ctx.replyWithPhoto(new InputFile("./img/lapiec.jpg"), {
       reply_markup: mainMenu,
       caption: "Меню"
   });
