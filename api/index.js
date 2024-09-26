@@ -8,10 +8,6 @@ const productsFullList = require("../products");
 const express = require("express");
 
 const bot = new Bot(process.env.BOT_API_KEY);
-const app = new express();
-app.use(express.json());
-
-app.use(webhookCallback(bot, "express"));
 
 
 let products = [];
@@ -170,14 +166,4 @@ async function mainScreen(ctx) {
   });
 }
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, async () => {
-  console.log(`Сервер запущен на порту ${PORT}`);
-
-  try {
-    await bot.api.setWebhook(`https://lapiec.vercel.app/`);
-    console.log("Вебхук установлен!");
-  } catch (error) {
-    console.error("Ошибка при установке вебхука", error);
-  }
-});
+bot.start();
