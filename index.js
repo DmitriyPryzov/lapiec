@@ -4,13 +4,22 @@ const { Bot, session, InputFile, InlineKeyboard } = require("grammy");
 const { Menu } = require("@grammyjs/menu");
 const { hydrate } = require("@grammyjs/hydrate");
 const { conversations, createConversation } = require("@grammyjs/conversations");
-const productsFullList = require("./products");
+const mongoose = require("mongoose");
+const Product = require("./models/products");
 
+// const productsFullList = require("./products-list");
+let productsFullList = [];
+
+const db = "mongodb+srv://dmytro:ferma221b@cluster0.snjv0.mongodb.net/lapiec-products?retryWrites=true&w=majority&appName=Cluster0";
 const bot = new Bot(process.env.BOT_API_KEY);
 
 
+mongoose
+  .connect(db)  
+  .then(() => console.log("Connected to DB"))
+  .catch((err) => console.log(err));
+
 let products = [];
-let posInBuyList = 0;
 
 
 bot.api.setMyCommands([
@@ -34,18 +43,30 @@ const recipes = new Menu("recipes")
                 .back("<< Назад");
 
 const buylist = new Menu("buylist")
-                .text("Повна закупка", fullChapter)
+                .text("Повна закупка", async (ctx) => {
+                  products = await getDataFromDB("");
+                   triggerPurchase(ctx, "Напиши потрібну кількість овочів:");
+                })
                 .row()
                 .submenu("По розділам", "section")
                 .row()
                 .back("<< Назад");
 
 const section = new Menu("section")
-                .text("Овочі", buyVegetables)
+                .text("Овочі", async (ctx) => {
+                 products = await getDataFromDB("Веган");
+                  triggerPurchase(ctx, "Напиши потрібну кількість овочів:");
+                })
                 .row()
-                .text("Львів")
+                .text("Львів", async (ctx) => {
+                  products = await getDataFromDB("Львів");
+                   triggerPurchase(ctx, "Напиши потрібну кількість овочів:");
+                })
                 .row()
-                .text("Метро")
+                .text("Метро", async (ctx) => {
+                  products = await getDataFromDB("Метро");
+                   triggerPurchase(ctx, "Напиши потрібну кількість овочів:");
+                })
                 .row()
                 .back("<< Назад");
 
@@ -106,14 +127,15 @@ async function fullpurchase(conversation, ctx) {
   };
 
   for (let i = 0; i < products.length; i++) {
-    await ctx.reply(products[i].product);
+    await ctx.reply(
+`<b>${products[i].product}</b>
+<code>Попереднє: ${products[i].lastBuyCount} ${products[i].nameWeight}</code>`, {parse_mode: "HTML"});
+
     const answer = await conversation.waitFor(":text");
     const count = answer.message.text;
 
-    if (count == "ок" || count == "х") {
-      const listProducts = createListProducts(providers);
-      await ctx.reply(listProducts ? listProducts : "Список пустий", { reply_markup: afterMenuInBuyList });
-      posInBuyList = i;
+    if (count == "ок" || count == "х" || count == "ok" || count == "x") {
+      getShoppingList(ctx, providers);
       return;
     }
 
@@ -128,6 +150,7 @@ async function fullpurchase(conversation, ctx) {
             count: count,
             nameWeight: products[i].nameWeight
           });
+          products[i].lastBuyCount = count;
         } catch (error){
           console.error("Помилка занесення даних! " + error);
         }
@@ -135,25 +158,49 @@ async function fullpurchase(conversation, ctx) {
     }
   }
   
-  const keys = Object.keys(providers);
-
-  for (let i = 0; i < keys.length; i++) {
-    const arr = providers[keys[i]];
-
-    if (arr.length > 0) {
-      const readyList = createListProducts(arr);
-      if (i === keys.length-1) {
-        await ctx.reply(readyList ? readyList : "Список пустий", { reply_markup: afterMenuInBuyList });
-      } else {
-        await ctx.reply(readyList ? readyList : "Список пустий");
-      }
-    }
-  }
+  getShoppingList(ctx, providers);
+  
+  saveUpdateDataToDB(products);
 
   products = [];
 }
 
-function createListProducts(array) {
+async function saveUpdateDataToDB(updatedProducts) {
+  try {
+    const operations = updatedProducts.map(product => ({
+      updateOne: {
+          filter: { _id: product._id},
+          update: { $set: { lastBuyCount: product.lastBuyCount } }
+      }
+    }));
+
+    await Product.bulkWrite(operations)
+                    .then(res => {
+                      console.log('Количество обновленных документов:', res.nModified);
+                      console.log('Ответ от MongoDB:', res)
+                    })
+                    .catch(() => console.log("Помилка запису в базу"));
+  } catch (err) {
+    console.log("Error save updated data to DB " + err);
+  }
+}
+
+async function getShoppingList(ctx, objProviders) {
+  const keys = Object.keys(objProviders);
+  for (let i = 0; i <= keys.length-1; i++) {
+    const arr = objProviders[keys[i]];
+ 
+    
+    if (arr.length > 0) {
+      const readyList = createStringProductsList(arr);
+
+      await ctx.reply(readyList ? readyList : "Список пустий");
+    }
+  }
+  await ctx.reply("Оберіть дію:", { reply_markup: afterMenuInBuyList });
+}
+
+function createStringProductsList(array) {
   let result = "";
 
   array.forEach(item => {
@@ -163,18 +210,17 @@ function createListProducts(array) {
   return result == "" ? undefined : result;
 }
 
-async function fullChapter(ctx) {
-  products = productsFullList.filter(item => item);
-  await ctx.callbackQuery.message.editCaption("Напиши кількість потрібних продутів:");
-  await ctx.conversation.enter("fullpurchase");
+function getDataFromDB(provider = "") {
+  if (provider == "") {
+    return  Product.find();
+  }
+  return  Product.find({ provider: provider });
 }
 
-async function buyVegetables(ctx) {
-  products = productsFullList.filter(item => item.provider == "Веган");
-  await ctx.callbackQuery.message.editCaption("Напиши потрібну кількість овочів:");
+async function triggerPurchase(ctx, text = "Напиши кількість потрібних продутів:") {
+  await ctx.callbackQuery.message.editCaption(text);
   await ctx.conversation.enter("fullpurchase");
 }
-
 
 async function mainScreen(ctx) {
   await ctx.replyWithPhoto(new InputFile("./img/lapiec.jpg"), {
