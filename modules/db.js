@@ -25,15 +25,46 @@ async function getDataFromDB(model, provider = "") {
     return  await model.find({ provider: provider });
 }
 
+async function getFilterUsersFromDB(model, filter) {
+  if (filter == "") {
+    return await model.find();
+  }
+  return await model.find({mode: filter});
+}
+
+
 async function getUserFromDB(model, userId) {
     if (typeof userId !== "number") return console.log("Parametr is not defined");
     
     return await model.findOne({ user: userId });
 }
 
-async function getRequestAuth(model) {
+async function getAllUsers(model) {
     return await model.find() || undefined; 
 }
 
 
-module.exports = { saveUpdateDataToDB, getDataFromDB, getUserFromDB, getRequestAuth };
+async function updateDataInDB(model, findData, updateData) {
+  try {
+    const result = await model.updateOne(findData, { $set: updateData });
+
+    return result.modifiedCount > 0;
+    
+  } catch (err) {
+    console.log("Помилка оновлення даних: ", err);
+  }
+}
+
+async function deleteDataFromDB(model, findData) {
+  try {
+    const result = await model.deleteOne(findData);
+
+    return result.deletedCount > 0;
+
+  } catch (err) {
+    console.log("Помилка видалення данних", err);  
+  }
+
+} 
+
+module.exports = { saveUpdateDataToDB, getDataFromDB, getUserFromDB, getAllUsers, getFilterUsersFromDB, updateDataInDB, deleteDataFromDB };

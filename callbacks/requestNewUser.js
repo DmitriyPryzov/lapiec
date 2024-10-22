@@ -1,5 +1,9 @@
 const { returnMenu }  = require("../menus/afterProcessMenu");
 const newUser = require("../models/newUser");
+const { InlineKeyboard } = require("grammy");
+const { getAllUsers } = require("../modules/db");
+const { setData, getData } = require("../globalData");
+const bot = require("../bot");
 
 async function requestAutorization(model, ctx) {
     try {
@@ -18,7 +22,9 @@ async function requestAutorization(model, ctx) {
                                   messageId: messageId
                                 });
         await user.save()
-                     .then(() => ctx.reply("Запит на автооризацію поданий. Очікуйте відповіді!"))
+                     .then(() => {
+                        ctx.reply("Запит на автооризацію поданий. Очікуйте відповіді!");
+                     })
                      .catch((err) => console.log(err));
       } else {
         ctx.reply("Ви вже подали запит на авторизацію. Очікуйте!");
@@ -28,15 +34,14 @@ async function requestAutorization(model, ctx) {
     }
 }
 
-async function acceptNewUser(bot, model, ctx) {
-    const res = ctx.callbackQuery.message.text.match(/id: (.*)/);
-    const userInfo = req.filter(item => item.userId === Number(res[1]))[0];
+async function acceptNewUser(bot, model, ctx, id) {
+    const userInfo = getData("requestUsers").filter(item => item.userId === Number(id))[0];
     
     try {
       const resFindInDB = await model.findOne( { user: userInfo.userId } );
   
       if (!resFindInDB){
-      const user = new model({user: Number(res[1]), mode: "user"});
+      const user = new model({user: Number(id), firstName: userInfo.firstName, lastName: userInfo.lastName, mode: "user"});
       await user.save().then(() => {
                                       ctx.reply(`Користувача ${userInfo.userId} авторизовано`, {reply_markup: returnMenu});
                                       bot.api.sendMessage(userInfo.chatId, "Вас авторизовано!", {reply_to_message_id: userInfo.messageId});
@@ -52,15 +57,40 @@ async function acceptNewUser(bot, model, ctx) {
     }
 }
 
-async function rejectNewUser(model, ctx) {
-  const res = ctx.callbackQuery.message.text.match(/id: (.*)/);
+async function rejectNewUser(model, ctx, id) {
   
   try {
-    await model.deleteOne({userId: Number(res[1])}).then(() => ctx.reply(`Користувача ${res} видалено`)).catch((err) => console.log(err));
+    await model.deleteOne({userId: Number(id)}).then(() => ctx.reply(`Користувача ${res} видалено`)).catch((err) => console.log(err));
     
   } catch (err) {
     console.log(err); 
   }
 }
 
-module.exports = { requestAutorization, acceptNewUser, rejectNewUser };
+async function showRequestAuthList(ctx) {
+  setData("requestUsers", await getAllUsers(newUser));
+  const req = getData("requestUsers");
+  
+ if (req) {
+     for (let i = 0; i < req.length; i++) {
+         const requestListMenu = new InlineKeyboard()
+             .text("Прийняти", `accept-${req[i].userId}`)
+             .text("Видалити", `reject-${req[i].userId}`);
+
+
+         if (i === req.length - 1) requestListMenu.row().text("Головне меню", "mainmenu");
+
+         const replyStr = 
+`id: ${req[i].userId}
+Ім'я: ${req[i].firstName}
+Прізвище: ${req[i].lastName}
+Запит прийшов із чату: ${req[i].chatId}`;
+         await ctx.reply(replyStr, { reply_markup: requestListMenu });
+     }
+ } else {
+     console.log(undefined);
+     await ctx.reply("Відсутні заявки на авторизацію", { reply_markup: returnMenu });
+ }
+} 
+
+module.exports = { requestAutorization, acceptNewUser, rejectNewUser, showRequestAuthList };
